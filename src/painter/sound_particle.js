@@ -1,5 +1,3 @@
-import { ToneAudioBuffer } from "tone";
-
 export default function SoundParticle(x, y, i){
     this.x = x;
     this.y = y;
@@ -10,23 +8,21 @@ export default function SoundParticle(x, y, i){
     this.grainSize = 0.01
     this.grainPlaybackRate = 1
     this.grainDetune = 50
-    this.grain
-    this.buffer = new ToneAudioBuffer(buffers[this.i].url, ()=>{
-        this.grain = new Tone.GrainPlayer({
-            "url": buffers[this.i].url,
-            "mute": false,
-            "volume": this.grainVol,
-            "overlap": this.grainOverlap,
-            "grainSize": this.grainSize,
-            "playbackRate": this.grainPlaybackRate,
-            "detune": this.grainDetune,
-            "loop": true,
-            "loopStart": 0,
-            "loopEnd": 4,
-            "reverse": false
-        })
+    this.grain = new Tone.GrainPlayer({
+        "url": buffers[this.i].url,
+        "mute": false,
+        "volume": this.grainVol,
+        "overlap": this.grainOverlap,
+        "grainSize": this.grainSize,
+        "playbackRate": this.grainPlaybackRate,
+        "detune": this.grainDetune,
+        "loop": true,
+        "loopStart": 0,
+        "loopEnd": 4,
+        "reverse": false
+    }, ()=>{
+        console.log("loaded");
     })
-    this.grain.toDestination()
     this.update = function(){
         this.x += random(-10, 10);
         this.y += random(-10, 10);
