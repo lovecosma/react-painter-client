@@ -8,7 +8,7 @@ function samplesReducer(state = { samples: [], requesting: false, error: false},
       case 'ADD_SAMPLE':
         return {
           ...state,
-          samples: [...state.samples, action.payload.sample],
+          samples: [...state.samples, action.sample],
           requesting: false
         }
         default:
