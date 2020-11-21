@@ -20,6 +20,7 @@ function SoundParticle(x, y, i, p5){
     this.grainSize = 0.01
     this.grainPlaybackRate = 1
     this.grainDetune = 50
+    const feedbackDelay = new Tone.FeedbackDelay(0.125, 0.5).toDestination();
     this.grain = new Tone.GrainPlayer({
         "url": buffers[this.i].url,
         "mute": false,
@@ -31,9 +32,9 @@ function SoundParticle(x, y, i, p5){
         "loop": true,
         "loopStart": 0,
         "loopEnd": 4,
-        "reverse": false
-    })
-    this.grain.toDestination().start()
+        "reverse": false,
+    }).connect(feedbackDelay).start()
+
     this.update = function(){
         this.x += p5.random(-10, 10);
         this.y += p5.random(-10, 10);
