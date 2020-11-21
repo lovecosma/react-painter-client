@@ -4,7 +4,13 @@ export class SampleForm extends Component {
     render() {
         return (
             <div>
-                Hey
+                <form action="">
+                    <label for="file"></label>
+                    <input type="file" name="file" id=""></input><br/>
+                    <label for="name"></label>
+                    <input type="text" name="name" id=""></input><br/>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         )
     }
