@@ -21,7 +21,7 @@ export default function SoundParticle(x, y, i){
         "loopEnd": 4,
         "reverse": false
     })
-    this.grain.toDestination().start()
+    this.grain.toDestination()
     this.update = function(){
         this.x += random(-10, 10);
         this.y += random(-10, 10);
