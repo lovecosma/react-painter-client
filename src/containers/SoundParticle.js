@@ -1,4 +1,3 @@
-import React from 'react'
 import * as Tone from 'tone'
 
 export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, video){
