@@ -1,6 +1,6 @@
 const fetchSamples = () => {
     return dispatch => {
-        dispatch({type: 'START_FETCHCHING_SAMPLES_REQUEST'})
+        dispatch({type: 'START_FETCHING_SAMPLES_REQUEST'})
         fetch('http://localhost:3001/samples')
         .then(resp => resp.json())
         .then(samples => {

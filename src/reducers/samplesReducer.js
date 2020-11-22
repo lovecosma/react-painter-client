@@ -11,6 +11,17 @@ function samplesReducer(state = { samples: [], requesting: false, error: false},
           samples: [...state.samples, action.sample],
           requesting: false
         }
+        case 'START_FETCHING_SAMPLES_REQUEST':
+        return {
+          ...state,
+          requesting: true
+        }
+      case 'ADD_SAMPLES':
+        return {
+          ...state,
+          samples: [...action.samples],
+          requesting: false
+        }
         default:
             return {
                 ...state
