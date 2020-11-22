@@ -7,7 +7,7 @@ export class Nav extends Component {
     render() {
         return (
             <div className="nav">
-                <nav>
+                <nav className="black white-text">
                     <ul>
                         <li><NavLink to="/painter">Painter</NavLink></li>
                         <li><NavLink to="/addSample">Add Sample</NavLink></li>

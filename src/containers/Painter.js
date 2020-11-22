@@ -50,7 +50,7 @@ function SoundParticle(x, y, i, p5){
         }
         if(this.y > 420){
             this.y = 0
-            // this.grain.playbackRate = this.grain.playbackRate * 2
+            // this.grain.playbackRate = p5. * 2
 
         } else if(this.y < 0){
            this.y = 420
@@ -68,9 +68,10 @@ function SoundParticle(x, y, i, p5){
         this.grainOverlap = p5.map(col[2], 0, 255, 0.1, 0.9)
         this.grain.grainSize = p5.map(col[1], 0, 255, 0.1, 0.9)
         this.grain.detune = p5.map(col[0], 0, 255, -2400, 2400)
+        this.feedbackDelay.feedback.value = p5.map(val, 0, 255, 0, 0.95)
       
 
-        p5.fill(col[0], col[1], col[2], val)
+        p5.fill(col[0], col[1], col[2], p5.map(val, 0, 255, 150, 255))
 
         p5.ellipse(this.x, this.y, 24, 24);
     }
@@ -129,9 +130,9 @@ export class Painter extends Component {
         // for(let i = 0; i < 100; i++){
         //     particles.push(new Particle(random(0, width), random(0, height), p5))
         // }
+        p5.createElement('br');
         slider = p5.createSlider(0, 255, 100, 1);
-        slider.position(0, 670);
-        slider.style('width', '80px');
+        slider.style("width", "250px")
     };
  
     draw = (p5) => {
