@@ -12,6 +12,12 @@ let particles = [];
 let sound_particles = []
 let slider;
 let numberOfParticles = 0
+let sel_1;
+let sel_2;
+let sel_3;
+let sel_4;
+let selects = [];
+let sampleSelect;
 
 export class Painter extends Component {
     state = {
@@ -27,6 +33,30 @@ export class Painter extends Component {
         console.log('audio is ready')
     }
 
+    createSelectionMenu = p5 => {
+        sel_1 = p5.createSelect();
+        sel_2 = p5.createSelect();
+        sel_3 = p5.createSelect();
+        sel_4 = p5.createSelect();
+        selects.push(sel_1, sel_2, sel_3, sel_4)
+        let t = 0
+        for(let s of selects){
+            let div = p5.createDiv()
+            div.style("display", "inline-flex")
+            div.style("flex", "left")
+            div.style("width", "25%")
+            div.style("overflow", "auto") 
+            div.style("padding", "15px")   
+            s.style("display", "block")            
+            for(let b of Object.entries(buffers)){
+                s.option(b[1].name)
+            }
+            sampleSelect.child(div)
+            div.child(s)
+            s.changed(this.sampleChange)
+        }
+    }
+
     setup = (p5, canvasParentRef) => {
         // use parent to render the canvas in this ref
         // (without that p5 will render the canvas outside of your component)
@@ -34,6 +64,8 @@ export class Painter extends Component {
         p5.pixelDensity(1)
         video = p5.createCapture(p5.VIDEO)
         video.size(p5.width/vScale, p5.height/vScale)
+        sampleSelect = p5.createDiv()
+        sampleSelect.style("width", "640px")
         p5.createElement('br');
         slider = p5.createSlider(0, 255, 0, 1);
         slider.style("width", "250px")
@@ -46,6 +78,7 @@ export class Painter extends Component {
         for(let i = 0; i < 100; i++){
             particles.push(new Particle(p5.random(0, p5.width), p5.random(0, p5.height), p5, vScale, video))
         }
+        this.createSelectionMenu(p5);
     };
     
     changeSamples(){
