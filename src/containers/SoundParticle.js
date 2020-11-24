@@ -68,11 +68,16 @@ export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, vide
             p5.ellipse(this.x, this.y, 24, 24);
         }
 
+        this.handleSelection = e => {
+            let i = Object.values(buffers).find(buffer => buffer.name === e.target.value)
+            this.urlSwitch(i)
+        }
+
     
-        this.urlSwitch = (index) => {
+        this.urlSwitch = (obj) => {
             this.grain.stop()
             this.grain = new Tone.GrainPlayer({
-                "url": buffers[index].url,
+                "url": obj.url,
                 "mute": false,
                 "volume": this.grainVol,
                 "overlap": this.grainOverlap,

@@ -34,12 +34,12 @@ export class Painter extends Component {
     }
 
     createSelectionMenu = p5 => {
+        let counter = 0
         sel_1 = p5.createSelect();
         sel_2 = p5.createSelect();
         sel_3 = p5.createSelect();
         sel_4 = p5.createSelect();
         selects.push(sel_1, sel_2, sel_3, sel_4)
-        let t = 0
         for(let s of selects){
             let div = p5.createDiv()
             div.style("display", "inline-flex")
@@ -47,14 +47,16 @@ export class Painter extends Component {
             div.style("width", "25%")
             div.style("overflow", "auto") 
             div.style("padding", "15px")   
-            s.style("display", "block")            
+            s.style("display", "block") 
+            sound_particles[counter].sel = s
             for(let b of Object.entries(buffers)){
                 s.option(b[1].name)
             }
             sampleSelect.child(div)
             div.child(s)
-            s.changed(this.sampleChange)
+            s.changed(sound_particles[counter].handleSelection)
         }
+        counter++
     }
 
     setup = (p5, canvasParentRef) => {
@@ -83,7 +85,8 @@ export class Painter extends Component {
     
     changeSamples(){
         for(let i = 0; i < sound_particles.length; i++){
-            sound_particles[i].urlSwitch(this.floor(this.random(0, Object.entries(buffers).length-1)));
+            let y = this.floor(this.random(0, Object.entries(buffers).length-1))
+            sound_particles[i].urlSwitch(buffers[y]);
         } 
     }
 
