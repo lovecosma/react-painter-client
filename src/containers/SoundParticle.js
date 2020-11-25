@@ -1,11 +1,11 @@
 import * as Tone from 'tone'
 
-export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, video){
+export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, video, select){
         this.x = x;
         this.y = y;
         this.i = i;
         this.loaded = false
-        this.sel = null
+        this.sel = select
         this.grainVol = 0
         this.grainOverlap = 0.05
         this.grainSize = 0.01
@@ -27,6 +27,7 @@ export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, vide
             "reverse": false,
             "onload": () => {
                 this.grain.connect(this.feedbackDelay, this.tremolo).start()
+                this.sel.value(buffers[this.i].name)
             }
         })
     
@@ -90,6 +91,7 @@ export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, vide
                 "reverse": false,
                 "onload": () => {
                 this.grain.connect(this.feedbackDelay).start()
+                this.sel.value(obj.name)
             }
             })
             // this.grain.stop()

@@ -34,7 +34,6 @@ export class Painter extends Component {
     }
 
     createSelectionMenu = p5 => {
-        let counter = 0
         sel_1 = p5.createSelect();
         sel_2 = p5.createSelect();
         sel_3 = p5.createSelect();
@@ -48,15 +47,12 @@ export class Painter extends Component {
             div.style("overflow", "auto") 
             div.style("padding", "15px")   
             s.style("display", "block") 
-            sound_particles[counter].sel = s
             for(let b of Object.entries(buffers)){
                 s.option(b[1].name)
             }
             sampleSelect.child(div)
             div.child(s)
-            s.changed(sound_particles[counter].handleSelection)
         }
-        counter++
     }
 
     setup = (p5, canvasParentRef) => {
@@ -74,13 +70,15 @@ export class Painter extends Component {
         p5.createElement('br');
         bang = p5.createButton("BANG"); 
         bang.mousePressed(this.changeSamples.bind(p5))
-        for(let i = 0; i < 4; i++){
-            sound_particles.push(new SoundParticle(p5.random(0, p5.width), p5.random(0, p5.height), p5.floor(p5.random(0, Object.entries(buffers).length-1)), p5, buffers, slider, vScale, video))
+        this.createSelectionMenu(p5);
+        for(let i = 0; i < selects.length; i++){
+            sound_particles.push(new SoundParticle(p5.random(0, p5.width), p5.random(0, p5.height), p5.floor(p5.random(0, Object.entries(buffers).length-1)), p5, buffers, slider, vScale, video, selects[i]))
+            sound_particles[i].sel.changed(sound_particles[i].handleSelection)
         }
+
         for(let i = 0; i < 100; i++){
             particles.push(new Particle(p5.random(0, p5.width), p5.random(0, p5.height), p5, vScale, video))
         }
-        this.createSelectionMenu(p5);
     };
     
     changeSamples(){
