@@ -11,6 +11,7 @@ let bang
 let particles = [];
 let sound_particles = []
 let slider;
+let slider_2
 let numberOfParticles = 0
 let sel_1;
 let sel_2;
@@ -68,11 +69,14 @@ export class Painter extends Component {
         slider = p5.createSlider(0, 255, 0, 1);
         slider.style("width", "250px")
         p5.createElement('br');
+        slider_2 = p5.createSlider(0, 255, 0, 1);
+        slider_2.style("width", "250px")
+        p5.createElement('br');
         bang = p5.createButton("BANG"); 
         bang.mousePressed(this.changeSamples.bind(p5))
         this.createSelectionMenu(p5);
         for(let i = 0; i < selects.length; i++){
-            sound_particles.push(new SoundParticle(p5.random(0, p5.width), p5.random(0, p5.height), p5.floor(p5.random(0, Object.entries(buffers).length-1)), p5, buffers, slider, vScale, video, selects[i]))
+            sound_particles.push(new SoundParticle(p5.random(0, p5.width), p5.random(0, p5.height), p5.floor(p5.random(0, Object.entries(buffers).length-1)), p5, buffers, slider, vScale, video, selects[i], slider_2))
             sound_particles[i].sel.changed(sound_particles[i].handleSelection)
         }
 
