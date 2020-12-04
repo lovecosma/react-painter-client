@@ -18,7 +18,34 @@ function About() {
             </div>
             <div className="about-howto">
                 <h2>How do I use this app?</h2>
-
+             <ul>
+                 <li>Click the painter tab on the navigation bar to navigate to the Painter.</li>
+                 <li>Press the play button to begin the program. Remember to allow permission to use the camera.</li>
+                 <li>Four audio samples are chosen randomly to begin with, but you can use the drop down selection inputs to choose different samples for each of the four dots.</li>
+                 <li>There are three sliders that will adjusst various audio and visual parameters
+                     <ul>
+                   <li>Slider 1: 
+                       <ul>
+                           <li>Adjusts the number of dots visble. *Remember* Only four dots have audio.</li>
+                           <li>Adjusts the feedback amount of the delay. Tip: If the audio seems to be getting loud and out of control or if the video is beginning to get laggy, try shifting this slider to the left.</li>
+                       </ul>
+                   </li>
+                   <li>Slider 2:
+                        <ul>
+                            <li>Adjusts the size of the dots.</li>
+                            <li>Adjusts the grain size in the granular synth. (Makes audio sample chunks smaller)</li>
+                        </ul>
+                   </li>
+                   <li> Slider 3:
+                       <ul>
+                           <li>Adjusts the opacity of each dot.</li>
+                           <li>Adjusts the delay time of the feedback delay on dots with audio.</li>
+                       </ul>
+                   </li>
+                    </ul>
+                 </li>
+                 <li>The BANG button assigns random audio samples to each dot.</li>
+             </ul>
             </div>
         </div>
     )
