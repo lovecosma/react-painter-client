@@ -20,6 +20,8 @@ let sel_3;
 let sel_4;
 let selects = [];
 let sampleSelect;
+let p5_lib;
+let menu
 
 export class Painter extends Component {
     state = {
@@ -27,6 +29,7 @@ export class Painter extends Component {
     }
      preload = p5 => {
         buffers = p5.loadJSON("http://localhost:3001/samples");
+        p5_lib = p5
      }
 
      play = async () => {
@@ -52,6 +55,7 @@ export class Painter extends Component {
             for(let b of Object.entries(buffers)){
                 s.option(b[1].name)
             }
+            div.class("center")
             sampleSelect.child(div)
             div.child(s)
         }
@@ -60,24 +64,41 @@ export class Painter extends Component {
     setup = (p5, canvasParentRef) => {
         // use parent to render the canvas in this ref
         // (without that p5 will render the canvas outside of your component)
-        p5.createCanvas(640, 480).parent(canvasParentRef);
+        p5.createCanvas(960, 720).parent(canvasParentRef);
         p5.pixelDensity(1)
+        p5.background("WhiteSmoke")
+        menu = p5.createDiv()
+        menu.class("center")
         video = p5.createCapture(p5.VIDEO)
         video.size(p5.width/vScale, p5.height/vScale)
         sampleSelect = p5.createDiv()
-        sampleSelect.style("width", "640px")
-        p5.createElement('br');
+        sampleSelect.class("center container")
+        sampleSelect.style("width", "100%")
         slider = p5.createSlider(0, 255, 0, 1);
-        slider.style("width", "250px")
-        p5.createElement('br');
+        slider.style("width", "500px")
+        // p5.createElement('br');
         slider_2 = p5.createSlider(0, 255, 100, 1);
-        slider_2.style("width", "250px")
+        slider_2.style("width", "500px")
         p5.createElement('br');
         slider_3 = p5.createSlider(0, 255, 0, 1);
-        slider_3.style("width", "250px")
+        slider_3.style("width", "500px")
+        p5.createElement('br');
         p5.createElement('br');
         bang = p5.createButton("BANG"); 
+        bang.class("black white-text large")
         bang.mousePressed(this.changeSamples.bind(p5))
+        menu.child(video)
+        menu.child(p5.createElement('br'))
+        menu.child(sampleSelect)
+        menu.child(p5.createElement('br'))
+        menu.child(slider)
+        menu.child(p5.createElement('br'))
+        menu.child(slider_2)
+        menu.child(p5.createElement('br'))
+        menu.child(slider_3)
+        menu.child(p5.createElement('br'))
+        menu.child(bang)
+        menu.child(p5.createElement('br'))
         this.createSelectionMenu(p5);
         for(let i = 0; i < selects.length; i++){
             sound_particles.push(new SoundParticle(p5.random(0, p5.width), p5.random(0, p5.height), p5.floor(p5.random(0, Object.entries(buffers).length-1)), p5, buffers, slider, vScale, video, selects[i], slider_2, slider_3))
@@ -88,6 +109,14 @@ export class Painter extends Component {
             particles.push(new Particle(p5.random(0, p5.width), p5.random(0, p5.height), p5, vScale, video, slider_2))
         }
     };
+
+    stop = () => {
+        for(let i = 0; i < sound_particles.length; i++){
+            sound_particles[i].grain.stop()
+        } 
+        for(let i = 0; i < selects.length; i++){
+        }
+    }
     
     changeSamples(){
         for(let i = 0; i < sound_particles.length; i++){
@@ -112,16 +141,23 @@ export class Painter extends Component {
         // in the draw function...
         // please use normal variables or class properties for these purposes
     };
+    componentWillUnmount = () => {
+        this.stop()
+    }
+
     render() {
         if(this.state.playing){
-        return (
-            <div>
-                <Sketch preload={this.preload} setup={this.setup} draw={this.draw} />
-            </div>
-        )
+            return (
+                <div className="sketch center">
+                    <Sketch preload={this.preload} setup={this.setup} draw={this.draw} />
+                </div>
+            )
         } else {
-            return <button onClick={this.play}>PLAY</button>
-
+            return (
+                <div className="play-button center">
+                    <button onClick={this.play} className="btn-floating btn-large waves-effect waves-light black valign-wrapper">PLAY</button>
+                </div> 
+            )
         }
     }
 }

@@ -7,13 +7,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-   <div className="center">
+   <div>
      <Router>
       <Switch>
         <div>
           <Nav/>
-          <Route exact path='/' render={routerProps => <About/>}/>
-          <Route exact path='/painter' render={routerProps => <Painter/>}/>
+          <Route exact path='/' render={routerProps => <Painter/>}/>
         </div>
       </Switch>
     </Router>

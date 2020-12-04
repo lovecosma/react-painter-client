@@ -34,14 +34,14 @@ export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, vide
         this.update = function(){
             this.x += p5.random(-10, 10);
             this.y += p5.random(-10, 10);
-            if(this.x >= 640){
+            if(this.x >= 960){
                 this.x = this.x - 200
                 this.grain.reverse = !this.grain.reverse
             } else if(this.x <= 0){
                 this.x = this.x + 200
                 this.grain.reverse = !this.grain.reverse
             }
-            if(this.y >= 420){
+            if(this.y >= 720){
                 this.y = this.y - 200
                 // this.grain.playbackRate = p5. * 2
     
@@ -59,7 +59,7 @@ export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, vide
             let px = p5.floor(this.x / vScale)
             let py = p5.floor(this.y / vScale)
             let col = video.get(px, py)
-            this.grain.volume.value = p5.map(this.x, 0, 640, -10, 5)
+            this.grain.volume.value = p5.map(this.x, 0, 960, -10, 5)
             this.grainOverlap = p5.map(col[2], 0, 255, 0, this.grain.buffer.duration)
             this.grain.grainSize =  p5.map(val_2, 0, 255, 0.01, 1)
             this.grain.detune = p5.map(col[0], 0, 255, -2400, 2400)

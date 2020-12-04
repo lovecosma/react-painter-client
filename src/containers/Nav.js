@@ -9,8 +9,7 @@ export class Nav extends Component {
             <div className="nav">
                 <nav className="black white-text">
                     <ul>
-                        <li><NavLink to="/">About</NavLink></li>
-                        <li><NavLink to="/painter">Painter</NavLink></li>
+                        <li><NavLink to="/">Painter</NavLink></li>
                     </ul>
                 </nav>
             </div>
