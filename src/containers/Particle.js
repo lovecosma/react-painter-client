@@ -1,5 +1,5 @@
 
-export default function Particle(x, y, p5, vScale, video){
+export default function Particle(x, y, p5, vScale, video, slider_2){
     this.x = x;
     this.y = y;
   
@@ -14,7 +14,10 @@ export default function Particle(x, y, p5, vScale, video){
         let px = p5.floor(this.x / vScale)
         let py = p5.floor(this.y / vScale)
         let col = video.get(px, py)
+        let val_2 = slider_2.value()
+        let diameter = p5.map(val_2, 0, 255, 10, 50)
+
         p5.fill(col[0], col[1], col[2])
-        p5.ellipse(this.x, this.y, 24, 24);
+        p5.ellipse(this.x, this.y, diameter, diameter);
     }
 }

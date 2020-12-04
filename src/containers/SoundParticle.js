@@ -1,6 +1,6 @@
 import * as Tone from 'tone'
 
-export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, video, select, slider_2){
+export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, video, select, slider_2, slider_3){
         this.x = x;
         this.y = y;
         this.i = i;
@@ -55,20 +55,22 @@ export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, vide
             p5.noStroke();
             let val = slider.value()
             let val_2 = slider_2.value()
+            let val_3 = slider_3.value()
             let px = p5.floor(this.x / vScale)
             let py = p5.floor(this.y / vScale)
             let col = video.get(px, py)
             this.grain.volume.value = p5.map(this.x, 0, 640, -10, 5)
             this.grainOverlap = p5.map(col[2], 0, 255, 0, this.grain.buffer.duration)
-            this.grain.grainSize = p5.map(this.y, 0, 480, 0.01, this.grain.buffer.duration)
+            this.grain.grainSize =  p5.map(val_2, 0, 255, 0.01, 1)
             this.grain.detune = p5.map(col[0], 0, 255, -2400, 2400)
             this.feedbackDelay.feedback.value = p5.map(val, 0, 255, 0, 0.95)
-            this.feedbackDelay.delayTime.value = p5.map(val_2, 0, 255, 0, 2)
+            this.feedbackDelay.delayTime.value = p5.map(val_3, 0, 255, 0, 2)
             this.grain.playbackRate = p5.map((col[0] + col[1] + col[2])/3, 0, 255, 0.5, 2)
+            let diameter = p5.map(val_2, 0, 255, 10, 50)
     
-            p5.fill(col[0], col[1], col[2], p5.map(val, 0, 255, 150, 255))
+            p5.fill(col[0], col[1], col[2], p5.map(val_3, 0, 255, 100, 255))
     
-            p5.ellipse(this.x, this.y, 24, 24);
+            p5.ellipse(this.x, this.y, diameter, diameter);
         }
 
         this.handleSelection = e => {

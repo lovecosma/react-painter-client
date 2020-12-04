@@ -1,18 +1,18 @@
 import Painter from  './containers/Painter'
-import SampleForm from './containers/SampleForm'
 import Nav from './containers/Nav'
-import { BrowserRouter as Router, Switch, Route,  } from 'react-router-dom';
+import About from './containers/About'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
 
 function App() {
   return (
-   <div>
+   <div className="center">
      <Router>
       <Switch>
         <div>
           <Nav/>
-          <Route exact path='/addSample' render={routerProps => <SampleForm/>}/>
+          <Route exact path='/' render={routerProps => <About/>}/>
           <Route exact path='/painter' render={routerProps => <Painter/>}/>
         </div>
       </Switch>
