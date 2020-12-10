@@ -72,7 +72,7 @@ export class Painter extends Component {
         cnv = p5.createCanvas(960, 720).parent(canvasParentRef);
         p5.pixelDensity(1)
         p5.background("WhiteSmoke")
-        snapshot = p5.createElement('button', 'Picture')
+        snapshot = p5.createElement('button', 'Save Canvas')
         snapshot.class("black white-text large")
         p5.createElement('br')
         snap_div = p5.createDiv()
