@@ -67,8 +67,12 @@ export class Painter extends Component {
         p5.createCanvas(960, 720).parent(canvasParentRef);
         p5.pixelDensity(1)
         p5.background("WhiteSmoke")
+        p5.createElement('br')
         menu = p5.createDiv()
-        menu.class("center")
+        menu.class("center container")
+        menu.style("border", "solid black")
+        menu.style("padding", "20px")
+        menu.style("margin-top", "20px")
         video = p5.createCapture(p5.VIDEO)
         video.size(p5.width/vScale, p5.height/vScale)
         sampleSelect = p5.createDiv()

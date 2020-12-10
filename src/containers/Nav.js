@@ -9,7 +9,7 @@ export class Nav extends Component {
             <div className="nav">
                 <nav className="black white-text">
                     <ul>
-                        <li><NavLink to="/">Painter</NavLink></li>
+                        <li className="brand-logo"><NavLink to="/">Painter</NavLink></li>
                     </ul>
                 </nav>
             </div>
