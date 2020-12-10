@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, createElement } from 'react'
 import Sketch from "react-p5";
 import * as Tone from 'tone'
 import Particle from './Particle'
 import SoundParticle from './SoundParticle'
+import Modal from './Modal'
 
 let video;
 let vScale = 8
@@ -22,6 +23,7 @@ let selects = [];
 let sampleSelect;
 let p5_lib;
 let menu
+let h1
 
 export class Painter extends Component {
     state = {
@@ -69,8 +71,9 @@ export class Painter extends Component {
         p5.background("WhiteSmoke")
         p5.createElement('br')
         menu = p5.createDiv()
-        menu.class("center container")
-        menu.style("border", "solid black")
+        menu.class("center container black white-text")
+        h1 = p5.createElement('h5', "Canvas Options")
+        h1.class("white-text")
         menu.style("padding", "20px")
         menu.style("margin-top", "20px")
         video = p5.createCapture(p5.VIDEO)
@@ -92,6 +95,7 @@ export class Painter extends Component {
         bang.class("black white-text large")
         bang.mousePressed(this.changeSamples.bind(p5))
         menu.child(video)
+        menu.child(h1)
         menu.child(p5.createElement('br'))
         menu.child(sampleSelect)
         menu.child(p5.createElement('br'))
@@ -154,6 +158,7 @@ export class Painter extends Component {
             return (
                 <div className="sketch center">
                     <Sketch preload={this.preload} setup={this.setup} draw={this.draw} />
+                    <Modal/>
                 </div>
             )
         } else {
