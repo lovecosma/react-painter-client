@@ -1,5 +1,4 @@
 import * as Tone from 'tone'
-
 export default function SoundParticle(x, y, i, p5, buffers, slider, vScale, video, select, slider_2, slider_3){
         this.x = x;
         this.y = y;

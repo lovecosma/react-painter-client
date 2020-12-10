@@ -22,8 +22,11 @@ let sel_4;
 let selects = [];
 let sampleSelect;
 let p5_lib;
-let menu
-let h1
+let menu;
+let h1;
+let snapshot;
+let snap_div;
+let cnv;
 
 export class Painter extends Component {
     state = {
@@ -66,17 +69,25 @@ export class Painter extends Component {
     setup = (p5, canvasParentRef) => {
         // use parent to render the canvas in this ref
         // (without that p5 will render the canvas outside of your component)
-        p5.createCanvas(960, 720).parent(canvasParentRef);
+        cnv = p5.createCanvas(960, 720).parent(canvasParentRef);
         p5.pixelDensity(1)
         p5.background("WhiteSmoke")
+        snapshot = p5.createElement('button', 'Picture')
+        snapshot.class("black white-text large")
         p5.createElement('br')
+        snap_div = p5.createDiv()
         menu = p5.createDiv()
+        snap_div.class("center container white-text")
+        snap_div.child(snapshot)
+        snapshot.mousePressed(this.snapshot.bind(p5))
         menu.class("center container black white-text")
         h1 = p5.createElement('h5', "Canvas Options")
         h1.class("white-text")
         menu.style("padding", "20px")
         menu.style("margin-top", "20px")
+        menu.style( "border-radius", "25px")
         video = p5.createCapture(p5.VIDEO)
+        video.style("border", "solid white")
         video.size(p5.width/vScale, p5.height/vScale)
         sampleSelect = p5.createDiv()
         sampleSelect.class("center container")
@@ -94,6 +105,8 @@ export class Painter extends Component {
         bang = p5.createButton("BANG"); 
         bang.class("black white-text large")
         bang.mousePressed(this.changeSamples.bind(p5))
+        menu.child(p5.createElement('br'))
+        menu.child(p5.createElement('br'))
         menu.child(video)
         menu.child(h1)
         menu.child(p5.createElement('br'))
@@ -117,6 +130,10 @@ export class Painter extends Component {
             particles.push(new Particle(p5.random(0, p5.width), p5.random(0, p5.height), p5, vScale, video, slider_2))
         }
     };
+
+    snapshot(){
+        this.save(cnv, 'myPortraitFromPainter.jpg')
+    }
 
     stop = () => {
         for(let i = 0; i < sound_particles.length; i++){
@@ -164,6 +181,9 @@ export class Painter extends Component {
         } else {
             return (
                 <div className="play-button center">
+                    <div>
+                        <h3>Make sure your sound isn't too loud..</h3>
+                    </div>
                     <button onClick={this.play} className="btn-floating btn-large waves-effect waves-light black valign-wrapper">PLAY</button>
                 </div> 
             )
