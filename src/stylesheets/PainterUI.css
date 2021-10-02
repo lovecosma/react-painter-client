@@ -1,0 +1,88 @@
+
+
+#samples-manager-header{
+    color: white;
+}
+
+#samples-manager{
+    background-color: black;
+    width: 400px;
+    height: 400px;
+    height: 40%;
+    padding-top: 5px;
+    padding-bottom: 50px;
+}
+
+#save-button{
+    height: 100px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+
+#ui-container{
+    margin-top: 30px;
+    height: 720px;
+}
+
+
+input.select-dropdown.dropdown-trigger{
+    height: 25px;
+}
+.select-wrapper{
+    margin-left: 10px;
+    height: 25px;
+}
+.dropdown-content li > a, .dropdown-content li > span {
+    color: black
+}
+.dropdown-content *{
+    color: black
+}
+
+.range-field{
+    width: 80%;
+    margin: auto;
+    margin-bottom: 15px;
+    color: black
+}
+
+input[type=range] + .thumb.active .value {
+    color: black;
+  }
+
+.dropdown{
+    background-color: white;
+    color: black;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#sample-dropdowns-container{
+    width: 400px;
+    background-color: black;
+    color: white;
+}
+/* .sketch-container{
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+#random-samples-button{
+    margin-top: 25px;
+}
+#audio-effect-dashboard{
+    height: 50%;
+    background-color: black;
+    margin-top: 10%;
+    padding-top: 5px;
+}
+
+#audio-effect-dashboard{
+    color: white
+}
+
+#effects-sliders-container{
+    margin-top: 30px;
+    padding: 10px
+}

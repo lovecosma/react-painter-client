@@ -1,23 +1,49 @@
 import Painter from  './containers/Painter'
 import Nav from './containers/Nav'
-import About from './containers/About'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from "react-redux"
+import fetchSamples  from "./actions/fetchSamples"
+import React, { Component } from "react"
 
 
+class App extends Component {
 
-function App() {
-  return (
-   <div>
-     <Router>
-      <Switch>
+  componentDidMount(){
+    this.props.fetchSamples()
+  }
+
+  render(){
+
+    return (
         <div>
-          <Nav/>
-          <Route exact path='/' render={routerProps => <Painter/>}/>
+
+          {this.props.samples[0] ? 
+          <div>
+          <Router>
+          <Switch>
+            <div>
+              <Nav/>
+              <Route exact path='/' render={routerProps => <Painter samples={this.props.samples}/>}/>
+            </div>
+          </Switch>
+        </Router>
+        </div> 
+        :
+        <div><h3>Loading</h3></div>}
+
+
         </div>
-      </Switch>
-    </Router>
-   </div>
-  );
+      );
+
+  }
+  
 }
 
-export default App;
+const mapStateToProps = ({samplesReducer}) => {
+  return ({
+      samples: samplesReducer.samples
+    }
+  )
+}
+
+export default connect(mapStateToProps, { fetchSamples })(App);
