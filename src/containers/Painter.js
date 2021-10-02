@@ -10,7 +10,6 @@ import "../stylesheets/Painter.css"
 
 
 const Painter = ({samples}) => {
-    debugger
 
 
     const [knobs, setKnobs] = useState({"Feedback": "", "Delay Time": "", "Dry/Wet": ""});
@@ -24,17 +23,13 @@ const Painter = ({samples}) => {
     let videoFeed;
 
     const [playing, setPlaying] = useState(false)
-    const [P5, setP5] = useState(null)
 
     const preload = (p5) => {
-        samples.forEach(() => {
-            
-        })
+    
     }
 
 
     const setup = (p5, canvasParentRef) => {
-        setP5(p5)
         p5.createCanvas(800, 720).parent(canvasParentRef);
         p5.background("WhiteSmoke")
         videoFeed = p5.createCapture(p5.VIDEO)
