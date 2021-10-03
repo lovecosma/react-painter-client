@@ -1,31 +1,33 @@
 import React, {useState } from 'react'
 import Sketch from "react-p5";
 import * as Tone from 'tone'
-// import Particle from './Particle'
-// import SoundParticle from './SoundParticle'
+import SoundParticle from './SoundParticle'
 import Modal from './Modal'
 import PainterUI from "../components/PainterUI"
 import "../stylesheets/Painter.css"
-
+import Particle from "./Particle"
 
 
 const Painter = ({samples}) => {
 
 
-    const [knobs, setKnobs] = useState({"Feedback": "", "Delay Time": "", "Dry/Wet": ""});
-
+    const knobs = {"Feedback": "", "Delay Time": "", "Dry/Wet": ""};
+    let urls = samples.map((sample) => sample.url)
     const handleChange = (e) => {
-        setKnobs({
-            ...knobs,
-            [e.target.name]: e.target.value
-        })
+       knobs[e.target.name] = e.target.value
+       console.log(knobs[e.target.name]);
     }
     let videoFeed;
-
+    let buffers;
+    let particles = [];
+    let numberOfParticles = 10;
+    let sound_particles = [];
     const [playing, setPlaying] = useState(false)
 
     const preload = (p5) => {
-    
+        buffers = new Tone.ToneAudioBuffers(urls, () => {
+            console.log("buffers loaded");
+        })
     }
 
 
@@ -34,20 +36,27 @@ const Painter = ({samples}) => {
         p5.background("WhiteSmoke")
         videoFeed = p5.createCapture(p5.VIDEO)
         videoFeed.hide()
+        for(let i = 0; i < numberOfParticles; i++){
+            particles.push(new Particle(p5.random(0, p5.width), p5.random(0, p5.height), p5, videoFeed))
+        }
+        for(let i = 0; i < 4; i++){
+            sound_particles.push(new SoundParticle(p5.random(0, p5.width), p5.random(0, p5.height), p5, urls, videoFeed, urls[i]))
+            console.log(buffers[i]);
+            // sound_particles[i].sel.changed(sound_particles[i].handleSelection)
+        }
     }
 
     const draw = (p5) => {
          // video.loadPixels();
          // let val = slider.value()
-         // numberOfParticles = p5.map(val, 0, 255, 0, 50)
-         // for(let i = 0; i < numberOfParticles; i++){
-         //     particles[i].update();
-         //     particles[i].show();
-         // }
-         // for(let i = 0; i < sound_particles.length; i++){
-         //     sound_particles[i].update();
-         //     sound_particles[i].show();
-         // }
+         for(let i = 0; i < 6; i++){
+             particles[i].update();
+             particles[i].show();
+         }
+         for(let i = 0; i < sound_particles.length; i++){
+             sound_particles[i].update();
+             sound_particles[i].show();
+         }
          // NOTE: Do not use setState in the draw function or in functions that are executed
          // in the draw function...
          // please use normal variables or class properties for these purposes
@@ -57,7 +66,7 @@ const Painter = ({samples}) => {
             <div className="sketch center">
                 <div id="painter-container">
                     <div className="sketch-container">
-                        <Sketch setup={setup} draw={draw}/>
+                        <Sketch preload={preload} setup={setup} draw={draw}/>
                     </div>
                    <PainterUI handleChange={handleChange}/>
                 </div>
